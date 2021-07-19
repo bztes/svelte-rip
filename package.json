@@ -1,0 +1,20 @@
+{
+  "name": "svelte-rip",
+  "version": "0.1.0",
+  "description": "Svelte responsive image preview",
+  "svelte": "src/index.js",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "svelte",
+    "responsive",
+    "image",
+    "preview",
+    "srcset",
+    "blurhash"
+  ],
+  "author": "Nico Beierle",
+  "license": "ISC"
+}
