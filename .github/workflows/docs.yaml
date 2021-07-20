@@ -9,7 +9,7 @@ on:
       - 'docs_src/**'
 
 jobs:
-  docs-build-deploy:
+  docs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,7 +17,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 16
 
       - name: Build
         run: cd docs_src && npm ci && npm run build
