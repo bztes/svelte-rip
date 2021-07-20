@@ -1,8 +1,8 @@
 <script>
   import { onMount } from 'svelte';
-  import { Settings } from 'svelte-rip';
+  import Settings from './settings';
 
-  export let data;
+  export let data = null;
   export let sizes = Settings.sizes;
   export let fixed = Settings.fixed;
 
@@ -52,7 +52,7 @@
   };
 </script>
 
-<div class="img-container" class:fixed>
+<div class="img-container {$$restProps.class || ''}" class:fixed>
   <div class="img-layer">
     <img
       src={srcValue}
@@ -73,7 +73,6 @@
   .img-container {
     display: inline-block;
     position: relative;
-    background-color: #000;
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
     width: 100%;
   }

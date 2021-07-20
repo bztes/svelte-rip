@@ -1,3 +1,7 @@
+# svelte-rip
+
+[Svelte][svelte] **r**esponsive **i**mages and image **p**review using [BlurHash][blurhash]
+
 ## Examples
 
 ```js
@@ -17,25 +21,31 @@ Settings.formats = (data) => Object.values(data.formats);
 ```js
 // responsive image
 
-import { Image } from 'svelte-rip';
+<script>
+  import { Image } from 'svelte-rip';
+</script>
 
-<Image data={item.img} sizes="96px" />
+<Image data={item.img} />
 ```
 
 ```js
 // responsive image with blurhash preview
 
-import { BlurhashImage, Image } from 'svelte-rip';
+<script>
+  import { BlurhashImage, Image } from 'svelte-rip';
+</script>
 
-<Image data={item.img} sizes="(min-width: 800px) 50vw, 100vw">
+<Image data="{item.img}" sizes="(min-width: 800px) 50vw, 100vw">
   <BlurhashImage slot="preview" />
 </Image>
 ```
 
 ```js
-// responsive image with blurhash preview and some overlay content
+// fixed responsive image with blurhash preview and some overlay content
 
-import { BlurhashImage, Image } from 'svelte-rip';
+<script>
+  import { BlurhashImage, Image } from 'svelte-rip';
+</script>
 
 <Image data={item.img} fixed>
   <BlurhashImage slot="preview" />
@@ -45,3 +55,6 @@ import { BlurhashImage, Image } from 'svelte-rip';
   </div>
 </Image>
 ```
+
+[svelte]: https://github.com/sveltejs/svelte
+[blurhash]: https://github.com/woltapp/blurhash

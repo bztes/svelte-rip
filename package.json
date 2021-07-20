@@ -16,5 +16,9 @@
     "blurhash"
   ],
   "author": "Nico Beierle",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "blurhash": "^1.1.3",
+    "svelte": "^3.38.3"
+  }
 }
