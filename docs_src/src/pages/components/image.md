@@ -12,14 +12,14 @@ Responsive image component using srcset
 
     function load() {
         img = {
-            src: '../static/robert-katzki-unsplash_org.jpg',
+            src: 'static/robert-katzki-unsplash_org.jpg',
             formats: [
-                { src: '../static/robert-katzki-unsplash_32.jpg', width: 32 },
-                { src: '../static/robert-katzki-unsplash_400.jpg', width: 400 },
-                { src: '../static/robert-katzki-unsplash_600.jpg', width: 600 },
-                { src: '../static/robert-katzki-unsplash_800.jpg', width: 800 },
-                { src: '../static/robert-katzki-unsplash_1000.jpg', width: 1000 },
-                { src: '../static/robert-katzki-unsplash_1600.jpg', width: 1600 }
+                { src: 'static/robert-katzki-unsplash_32.jpg', width: 32 },
+                { src: 'static/robert-katzki-unsplash_400.jpg', width: 400 },
+                { src: 'static/robert-katzki-unsplash_600.jpg', width: 600 },
+                { src: 'static/robert-katzki-unsplash_800.jpg', width: 800 },
+                { src: 'static/robert-katzki-unsplash_1000.jpg', width: 1000 },
+                { src: 'static/robert-katzki-unsplash_1600.jpg', width: 1600 }
             ]
         };
     }
@@ -48,8 +48,8 @@ Responsive image component using srcset
 
     function load() {
         img = {
-            src: '../static/robert-katzki-unsplash_org.jpg',
-            preview: '../static/robert-katzki-unsplash_32.jpg'
+            src: 'static/robert-katzki-unsplash_org.jpg',
+            preview: 'static/robert-katzki-unsplash_32.jpg'
         };
     }
 </script>
@@ -79,7 +79,7 @@ Responsive image component using srcset
 
     function load() {
         img = {
-            src: '../static/robert-katzki-unsplash_org.jpg',
+            src: 'static/robert-katzki-unsplash_org.jpg',
             blurhash: 'LiJj|x1*?:-QM{jYxGR+Oss.rrS5'
         };
     }
@@ -110,15 +110,15 @@ Responsive image component using srcset
 
     function load() {
         img = {
-            src: '../static/robert-katzki-unsplash_org.jpg',
+            src: 'static/robert-katzki-unsplash_org.jpg',
             blurhash: 'LiJj|x1*?:-QM{jYxGR+Oss.rrS5',
             formats: [
-                { src: '../static/robert-katzki-unsplash_32.jpg', width: 32 },
-                { src: '../static/robert-katzki-unsplash_400.jpg', width: 400 },
-                { src: '../static/robert-katzki-unsplash_600.jpg', width: 600 },
-                { src: '../static/robert-katzki-unsplash_800.jpg', width: 800 },
-                { src: '../static/robert-katzki-unsplash_1000.jpg', width: 1000 },
-                { src: '../static/robert-katzki-unsplash_1600.jpg', width: 1600 }
+                { src: 'static/robert-katzki-unsplash_32.jpg', width: 32 },
+                { src: 'static/robert-katzki-unsplash_400.jpg', width: 400 },
+                { src: 'static/robert-katzki-unsplash_600.jpg', width: 600 },
+                { src: 'static/robert-katzki-unsplash_800.jpg', width: 800 },
+                { src: 'static/robert-katzki-unsplash_1000.jpg', width: 1000 },
+                { src: 'static/robert-katzki-unsplash_1600.jpg', width: 1600 }
             ]
         };
     }
