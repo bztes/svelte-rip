@@ -1,19 +1,31 @@
+<script context="module">
+  export const defaults = {
+    fixed: false,
+    sizes: null,
+    fadeAfter: 500,
+    src: (data) => data.src,
+    width: (format) => format.width,
+    alt: (data) => data.alt,
+    title: (data) => data.title,
+    formats: (data) => data.formats,
+  };
+</script>
+
 <script>
   import { onMount } from 'svelte';
-  import Settings from './settings';
 
   export let data = null;
-  export let sizes = Settings.sizes;
-  export let fixed = Settings.fixed;
+  export let sizes = defaults.sizes;
+  export let fixed = defaults.fixed;
 
-  export let src = Settings.src;
+  export let src = defaults.src;
   let srcValue = null;
   $: if (data) {
     srcValue = src(data);
   }
 
-  export let formats = Settings.formats;
-  export let width = Settings.width;
+  export let formats = defaults.formats;
+  export let width = defaults.width;
   let srcsetValue = null;
   $: if (data) {
     srcsetValue =
@@ -22,13 +34,13 @@
         .join(',') || null;
   }
 
-  export let alt = Settings.alt;
+  export let alt = defaults.alt;
   let altValue = null;
   $: if (data) {
     altValue = alt(data);
   }
 
-  export let title = Settings.title;
+  export let title = defaults.title;
   let titleValue = null;
   $: if (data) {
     titleValue = title(data);
@@ -38,7 +50,7 @@
    * Only show fade animation if image loading takes more than ...
    * @type {number}
    */
-  export let fadeAfter = Settings.fadeAfter;
+  export let fadeAfter = defaults.fadeAfter;
   let fade = false;
   let pageTime = 0;
   onMount(() => {
@@ -75,6 +87,7 @@
     position: relative;
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
     width: 100%;
+    height: 100%;
   }
 
   .img-container.fixed .img-layer {

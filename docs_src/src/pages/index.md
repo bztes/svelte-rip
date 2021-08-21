@@ -2,21 +2,12 @@
 
 Svelte **R**esponsive **I**mage **P**review
 
-- Component to display BlurHash images
-- Component to display responsive images
+- BlurHash images
+- Responsive images using scrset
+- Image preview for slow loading images
 
 ## Installation
 
-Run this command:
-
 ```shell
-$ npm i -D svelte-rip
-```
-
-Then you can import it in your projects, e.g.:
-
-```html
-<script>
-  import { Image } from 'svelte-rip';
-</script>
+$ npm i -D @bztes/svelte-rip
 ```

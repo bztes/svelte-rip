@@ -5,55 +5,65 @@
 ## Examples
 
 ```js
-import { BlurhashImage, Image } from 'svelte-rip';
-```
-
-```js
-// override default settings
-
-import { Settings } from 'svelte-rip';
-
-Settings.src = (data) => IMAGE_PATH + data.url;
-Settings.alt = (data) => data.alternativeText;
-Settings.formats = (data) => Object.values(data.formats);
-```
-
-```js
-// responsive image
+// responsive image using srcset
 
 <script>
-  import { Image } from 'svelte-rip';
+  import { Image } from '@bztes/svelte-rip';
+
+  let imgData = {
+    src: 'static/robert-katzki-unsplash_org.jpg',
+    alt: 'Rainbow Tunnel',
+    formats: [
+        { src: 'static/robert-katzki-unsplash_400.jpg', width: 400 },
+        { src: 'static/robert-katzki-unsplash_800.jpg', width: 800 },
+        { src: 'static/robert-katzki-unsplash_1000.jpg', width: 1000 },
+    ]
+  }:
 </script>
 
-<Image data={item.img} />
+<Image data={imgData} />
 ```
 
 ```js
 // responsive image with blurhash preview
 
 <script>
-  import { BlurhashImage, Image } from 'svelte-rip';
+  import { BlurhashImage, Image } from '@bztes/svelte-rip';
+
+  export let imgData;
 </script>
 
-<Image data="{item.img}" sizes="(min-width: 800px) 50vw, 100vw">
-  <BlurhashImage slot="preview" />
+<Image data="{imgData}" sizes="(min-width: 800px) 50vw, 100vw">
+  <BlurhashImage hash={imgData.blurhash} slot="preview" />
 </Image>
 ```
 
 ```js
-// fixed responsive image with blurhash preview and some overlay content
+// fixed responsive background image with thumbnail preview
 
 <script>
-  import { BlurhashImage, Image } from 'svelte-rip';
+  import { Image } from '@bztes/svelte-rip';
+
+  export let imgData;
 </script>
 
-<Image data={item.img} fixed>
-  <BlurhashImage slot="preview" />
+<Image data={imgData} fixed>
+  <img src={imgData.thumbnail} slot="preview" />
   <div style="height: 100vh;">
     <h1>{item.title}</h1>
     <p>{item.intro}</p>
   </div>
 </Image>
+```
+
+```js
+// custom default settings
+
+import { ImageDefaults } from '@bztes/svelte-rip';
+
+ImageDefaults.src = (data) => 'static/' + data.url;
+ImageDefaults.alt = (data) => data.alternativeText;
+ImageDefaults.formats = (data) => Object.values(data.formats);
 ```
 
 [svelte]: https://github.com/sveltejs/svelte

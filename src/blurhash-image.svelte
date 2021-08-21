@@ -8,7 +8,7 @@
 
   let src;
 
-  if (hash) {
+  $: if (hash && ratio && resolution) {
     const w = resolution;
     const h = Math.round(resolution / ratio);
     const pixels = decode(hash, w, h);

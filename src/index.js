@@ -1,5 +1,4 @@
 import BlurhashImage from './blurhash-image.svelte';
-import Image from './image.svelte';
-import Settings from './settings';
+import Image, { defaults as ImageDefaults } from './image.svelte';
 
-export { BlurhashImage, Image, Settings };
+export { BlurhashImage, Image, ImageDefaults };
