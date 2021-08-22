@@ -1,13 +1,15 @@
 <script context="module">
   export const defaults = {
-    fixed: false,
-    sizes: null,
     fadeAfter: 500,
-    src: (data) => data.src,
-    width: (format) => format.width,
+    fit: 'cover',
+    fixed: false,
+    class: 'h-full',
+    sizes: null,
     alt: (data) => data.alt,
-    title: (data) => data.title,
     formats: (data) => data.formats,
+    src: (data) => data.src,
+    title: (data) => data.title,
+    width: (format) => format.width,
   };
 </script>
 
@@ -16,6 +18,7 @@
 
   export let data = null;
   export let sizes = defaults.sizes;
+  export let fit = defaults.fit;
   export let fixed = defaults.fixed;
 
   export let src = defaults.src;
@@ -64,8 +67,8 @@
   };
 </script>
 
-<div class="img-container {$$restProps.class || ''}" class:fixed>
-  <div class="img-layer">
+<div class="img-container {$$restProps.class || defaults.class}" class:fixed>
+  <div class="img-layer {fit}">
     <img
       src={srcValue}
       alt={altValue}
@@ -75,7 +78,11 @@
       on:load={load}
     />
   </div>
-  <div class="img-layer preview" class:hidden={isLoaded} class:fade>
+  <div
+    class="img-layer preview {fit == 'scale-down' ? 'contain' : fit}"
+    class:hidden={isLoaded}
+    class:fade
+  >
     <slot name="preview" />
   </div>
   <slot />
@@ -83,10 +90,12 @@
 
 <style>
   .img-container {
-    display: inline-block;
     position: relative;
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
     width: 100%;
+  }
+
+  .h-full {
     height: 100%;
   }
 
@@ -111,9 +120,28 @@
     height: 100%;
   }
 
-  .img-layer :global(img) {
+  .img-layer > :global(img) {
     width: 100%;
     height: 100%;
+  }
+
+  .img-layer.contain > :global(img) {
+    object-fit: contain;
+  }
+
+  .img-layer.cover > :global(img) {
     object-fit: cover;
+  }
+
+  .img-layer.fill > :global(img) {
+    object-fit: fill;
+  }
+
+  .img-layer.none > :global(img) {
+    object-fit: none;
+  }
+
+  .img-layer.scale-down > :global(img) {
+    object-fit: scale-down;
   }
 </style>

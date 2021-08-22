@@ -21,7 +21,7 @@
   }:
 </script>
 
-<Image data={imgData} />
+<Image data={imgData} class="h-screen" />
 ```
 
 ```js
@@ -33,7 +33,7 @@
   export let imgData;
 </script>
 
-<Image data="{imgData}" sizes="(min-width: 800px) 50vw, 100vw">
+<Image data="{imgData}" class="h-screen" sizes="(min-width: 800px) 50vw, 100vw">
   <BlurhashImage hash={imgData.blurhash} slot="preview" />
 </Image>
 ```
@@ -47,7 +47,7 @@
   export let imgData;
 </script>
 
-<Image data={imgData} fixed>
+<Image data={imgData} class="h-screen" fixed>
   <img src={imgData.thumbnail} slot="preview" />
   <div style="height: 100vh;">
     <h1>{item.title}</h1>

@@ -26,12 +26,16 @@ Responsive image component using srcset
 </script>
 
 {#if img}
-    <div style="height: 20rem;">
-        <Image data={img} />
-    </div>
+    <Image data={img} class="h-96" />
 {:else}
     <button on:click={load}>Load</button>
 {/if}
+
+<style>
+    :global(.h-96) {
+        height: 24rem;
+    }
+</style>
 ```
 
 ## Preview Image
@@ -51,14 +55,18 @@ Responsive image component using srcset
 </script>
 
 {#if img}
-    <div style="aspect-ratio: 2 / 1">
-        <Image data={img}>
-            <img src={img.preview} slot="preview" />
-        </Image>
-    </div>
+    <Image data={img} class="h-96" fit="contain">
+        <img src={img.preview} slot="preview" />
+    </Image>
 {:else}
     <button on:click={load}>Load</button>
 {/if}
+
+<style>
+    :global(.h-96) {
+        height: 24rem;
+    }
+</style>
 ```
 
 ## Preview with Blurhash
@@ -78,17 +86,16 @@ Responsive image component using srcset
 </script>
 
 {#if img}
-    <Image data={img} class="tile">
-        <BlurhashImage hash={img.blurhash} slot="preview" />
+    <Image data={img} class="h-96" fit="scale-down">
+        <BlurhashImage hash={img.blurhash} ratio="1.5" slot="preview" />
     </Image>
 {:else}
     <button on:click={load}>Load</button>
 {/if}
 
 <style>
-    :global(.tile) {
-        aspect-ratio: 1 / 1;
-        max-width: 20rem;
+    :global(.h-96) {
+        height: 24rem;
     }
 </style>
 ```
@@ -130,11 +137,53 @@ Responsive image component using srcset
 <style>
     div {
         overflow-y: scroll;
-        max-height: 20rem;
+        height: 20rem;
     }
     h1, p {
         margin: 2rem;
         color: #fff;
+    }
+</style>
+```
+
+## Image height
+
+```example
+<script>
+    import { Image } from '@bztes/svelte-rip';
+
+    let img = null;
+
+    function load() {
+        img = {
+            src: 'static/robert-katzki-unsplash_org.jpg',
+        };
+    }
+</script>
+
+{#if img}
+    Default: 100% of parent container (120px)
+    <div style="height:120px">
+        <Image data={img} />
+    </div>
+
+    Fixed container height by passing a style class (height: 24rem;)
+    <Image data={img} class="h-96" />
+
+    Auto container height by passing a style class (height: auto;)
+    <Image data={img} class="h-auto">
+        <div>Lore<br />Ipsum</div>
+    </Image>
+{:else}
+    <button on:click={load}>Load</button>
+{/if}
+
+<style>
+    :global(.h-96) {
+        height: 24rem;
+    }
+    :global(.h-auto) {
+        height: auto;
     }
 </style>
 ```
@@ -158,21 +207,26 @@ Responsive image component using srcset
 </script>
 
 {#if img}
-    <div style="height: 20rem;">
-        <Image data={img} />
-    </div>
+    <Image data={img} class="h-96" />
 {:else}
     <button on:click={load}>Load</button>
 {/if}
+
+<style>
+    :global(.h-96) {
+        height: 24rem;
+    }
+</style>
 ```
 
 ## Properties
 
 ```properties
 alt | Function which returns the alternate image text | function((d) => d.alt)
-css | Style classes that shall be applied to the img-container | string(null)
+css | Style classes that shall be applied to the img-container | string('h-full')
 data | Image object which contains the image path, alternative image formats, widths, ... | object(null)
 fadeAfter | No fade effect if image could be loaded within X ms | number(500)
+fit | defines how the image should be resized to fit into the container (see object-fit) | string('cover')
 fixed | If true the image will not scroll | bool(false)
 formats | Function that returns an array of alternative image formats, each entry must provide a value for `src` and `width` | function((d) => d.formats)
 sizes | Image sizes attribute | string(null)
