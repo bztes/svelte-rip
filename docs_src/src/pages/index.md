@@ -4,7 +4,7 @@ Svelte **R**esponsive **I**mage **P**review
 
 - BlurHash images
 - Responsive images using scrset
-- Image preview for slow loading images
+- Image stack for preview images
 
 ## Installation
 

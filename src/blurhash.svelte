@@ -1,10 +1,19 @@
+<script context="module">
+  export const defaults = {
+    hash: 'L1TSUA?bfQ?b~qj[fQj[fQfQfQfQ',
+    alt: 'preview',
+    ratio: 1.333,
+    resolution: 32,
+  };
+</script>
+
 <script>
   import { decode } from 'blurhash';
 
-  export let hash = 'L1TSUA?bfQ?b~qj[fQj[fQfQfQfQ';
-  export let alt = '';
-  export let ratio = 1.333;
-  export let resolution = 32;
+  export let hash = defaults.hash;
+  export let alt = defaults.alt;
+  export let ratio = defaults.ratio;
+  export let resolution = defaults.resolution;
 
   let src;
 

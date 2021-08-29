@@ -1,6 +1,8 @@
 # svelte-rip
 
-[Svelte][svelte] **r**esponsive **i**mages and image **p**review using [BlurHash][blurhash]
+[Svelte][svelte] components for **r**esponsive **i**mages and image **p**reviews (incl. [BlurHash][blurhash])
+
+[Demo](https://bztes.github.io/svelte-rip/)
 
 ## Examples
 
@@ -21,43 +23,45 @@
   }:
 </script>
 
-<Image data={imgData} class="h-screen" />
+<Image data={imgData} />
 ```
 
 ```js
-// responsive image with blurhash preview
+// responsive image with BlurHash preview
 
 <script>
-  import { BlurhashImage, Image } from '@bztes/svelte-rip';
+  import { Blurhash, Image, Stack } from '@bztes/svelte-rip';
 
   export let imgData;
 </script>
 
-<Image data="{imgData}" class="h-screen" sizes="(min-width: 800px) 50vw, 100vw">
-  <BlurhashImage hash={imgData.blurhash} slot="preview" />
-</Image>
+<Stack class="h-screen">
+  <Image slot="image" data="{imgData}" sizes="(min-width: 800px) 50vw, 100vw" />
+  <Blurhash slot="preview" hash={imgData.blurhash} />
+</Stack>
 ```
 
 ```js
 // fixed responsive background image with thumbnail preview
 
 <script>
-  import { Image } from '@bztes/svelte-rip';
+  import { Image, Stack } from '@bztes/svelte-rip';
 
   export let imgData;
 </script>
 
-<Image data={imgData} class="h-screen" fixed>
-  <img src={imgData.thumbnail} slot="preview" />
+<Stack class="h-screen" fixed>
+  <Image slot="image" data={imgData} />
+  <img slot="preview" src={imgData.thumbnail} />
   <div style="height: 100vh;">
     <h1>{item.title}</h1>
     <p>{item.intro}</p>
   </div>
-</Image>
+</Stack>
 ```
 
 ```js
-// custom default settings
+// customize default settings
 
 import { ImageDefaults } from '@bztes/svelte-rip';
 
