@@ -20,5 +20,13 @@
   "devDependencies": {
     "svelte": "^3.38.0",
     "blurhash": "^1.1.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bztes/svelte-rip.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bztes/svelte-rip/issues"
+  },
+  "homepage": "https://bztes.github.io/svelte-rip/"
 }
