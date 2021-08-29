@@ -9,5 +9,5 @@ Svelte **R**esponsive **I**mage **P**review
 ## Installation
 
 ```shell
-$ npm i -D @bztes/svelte-rip
+$ npm i -D blurhash @bztes/svelte-rip
 ```
