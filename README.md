@@ -32,7 +32,7 @@
 <script>
   import { Blurhash, Image, Stack } from '@bztes/svelte-rip';
 
-  export let imgData;
+  // ...
 </script>
 
 <Stack class="h-screen">
@@ -47,16 +47,14 @@
 <script>
   import { Image, Stack } from '@bztes/svelte-rip';
 
-  export let imgData;
+  // ...
 </script>
 
 <Stack class="h-screen" fixed>
   <Image slot="image" data={imgData} />
   <img slot="preview" src={imgData.thumbnail} />
-  <div style="height: 100vh;">
-    <h1>{item.title}</h1>
-    <p>{item.intro}</p>
-  </div>
+  <h1>{header}</h1>
+  <p>{message}</p>
 </Stack>
 ```
 
