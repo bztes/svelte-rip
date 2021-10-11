@@ -1,19 +1,22 @@
 # svelte-rip
 
+**ALPHA: API may change at any time**
+
 [Svelte][svelte] components for **r**esponsive **i**mages and image **p**reviews (incl. [BlurHash][blurhash])
 
 [Demo](https://bztes.github.io/svelte-rip/)
 
 ## Examples
 
-```js
-// responsive image using srcset
+### Responsive Image with Thumbnail Preview
 
+```js
 <script>
   import { Image } from '@bztes/svelte-rip';
 
   let imgData = {
     src: 'static/robert-katzki-unsplash_org.jpg',
+    previewSrc: 'static/robert-katzki-unsplash_32.jpg',
     alt: 'Rainbow Tunnel',
     formats: [
         { src: 'static/robert-katzki-unsplash_400.jpg', width: 400 },
@@ -26,23 +29,25 @@
 <Image data={imgData} />
 ```
 
+### Responsive Image with Blurhash Preview
+
 ```js
-// responsive image with BlurHash preview
-
 <script>
-  import { Blurhash, Image, Stack } from '@bztes/svelte-rip';
+    import { Image, blurhashToData } from '@bztes/svelte-rip';
 
-  // ...
+    let imgData = {
+      src: 'static/robert-katzki-unsplash_org.jpg',
+      hash: 'LGF5]+Yk^6#M@-5c,1J5@[or[Q6.',
+      formats: [ ... ]
+    };
 </script>
 
-<Stack class="h-screen">
-  <Image slot="image" data="{imgData}" sizes="(min-width: 800px) 50vw, 100vw" />
-  <Blurhash slot="preview" hash={imgData.blurhash} />
-</Stack>
+<Image data={imgData} previewSrc={blurhashToData} />
 ```
 
+### Fixed background image
+
 ```js
-// fixed responsive background image with thumbnail preview
 
 <script>
   import { Image, Stack } from '@bztes/svelte-rip';
@@ -50,17 +55,15 @@
   // ...
 </script>
 
-<Stack class="h-screen" fixed>
+<Stack fixed>
   <Image slot="image" data={imgData} />
-  <img slot="preview" src={imgData.thumbnail} />
-  <h1>{header}</h1>
-  <p>{message}</p>
+  <h1>Hello Bello</h1>
 </Stack>
 ```
 
-```js
-// customize default settings
+### Adjust default settings
 
+```js
 import { ImageDefaults } from '@bztes/svelte-rip';
 
 ImageDefaults.src = (data) => 'static/' + data.url;

@@ -1,11 +1,12 @@
 <script context="module">
   export const defaults = {
-    class: null,
-    fadeAfter: 500,
+    class: '',
+    fadeAfter: 0,
     sizes: null,
     alt: (data) => data.alt,
     formats: (data) => data.formats,
     src: (data) => data.src,
+    previewSrc: (data) => data.previewSrc,
     title: (data) => data.title,
     width: (format) => format.width,
   };
@@ -13,6 +14,7 @@
 
 <script>
   import { onMount } from 'svelte';
+  import PreviewWrapper from './preview-wrapper.svelte';
 
   export let data = null;
   export let sizes = defaults.sizes;
@@ -45,6 +47,12 @@
     titleValue = title(data);
   }
 
+  export let previewSrc = defaults.previewSrc;
+  let previewSrcValue = null;
+  $: if (data) {
+    previewSrcValue = previewSrc(data);
+  }
+
   /**
    * Only show fade animation if image loading takes more than <fadeAfter> ms
    * @type {number}
@@ -63,17 +71,19 @@
   };
 </script>
 
-<img
-  src={srcValue}
-  alt={altValue}
-  srcset={srcsetValue}
-  title={titleValue}
-  {sizes}
-  on:load={onImageLoaded}
-  class={$$restProps.class || defaults.class}
-  class:hidden={!isLoaded}
-  class:fade
-/>
+<PreviewWrapper src={previewSrcValue}>
+  <img
+    src={srcValue}
+    alt={altValue}
+    srcset={srcsetValue}
+    title={titleValue}
+    {sizes}
+    on:load={onImageLoaded}
+    class={`rip-img ${$$restProps.class || defaults.class}`}
+    class:hidden={!isLoaded}
+    class:fade
+  />
+</PreviewWrapper>
 
 <style>
   img {
@@ -84,6 +94,8 @@
   }
 
   img.fade {
-    transition: opacity 1s ease-in-out;
+    transition-property: opacity;
+    transition-duration: 1s;
+    transition-timing-function: ease-in-out;
   }
 </style>
