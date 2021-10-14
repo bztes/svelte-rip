@@ -3,55 +3,47 @@
     class: '',
     fadeAfter: 0,
     sizes: null,
-    alt: (data) => data.alt,
-    formats: (data) => data.formats,
-    src: (data) => data.src,
-    previewSrc: (data) => data.previewSrc,
-    title: (data) => data.title,
-    width: (format) => format.width,
+    alt: (data) => data?.alt,
+    formats: (data) => data?.formats ?? [],
+    src: (dataFormat) => dataFormat?.src,
+    previewSrc: (data) => data?.previewSrc,
+    title: (data) => data?.title,
+    width: (dataFormat) => dataFormat?.width,
+    height: (data) => data?.height,
   };
 </script>
 
 <script>
   import { onMount } from 'svelte';
   import PreviewWrapper from './preview-wrapper.svelte';
+  import { propValue } from './utils';
 
   export let data = null;
   export let sizes = defaults.sizes;
 
   export let src = defaults.src;
-  let srcValue = null;
-  $: if (data) {
-    srcValue = src(data);
-  }
+  $: srcValue = propValue(src, data);
 
-  export let formats = defaults.formats;
   export let width = defaults.width;
-  let srcsetValue = null;
-  $: if (data) {
-    srcsetValue =
-      formats(data)
-        ?.map((f) => `${src(f)} ${width(f)}w`)
-        .join(',') || null;
-  }
+  $: widthValue = propValue(width, data);
+
+  export let height = defaults.height;
+  $: heightValue = propValue(height, data);
 
   export let alt = defaults.alt;
-  let altValue = null;
-  $: if (data) {
-    altValue = alt(data);
-  }
+  $: altValue = propValue(alt, data);
 
   export let title = defaults.title;
-  let titleValue = null;
-  $: if (data) {
-    titleValue = title(data);
-  }
+  $: titleValue = propValue(title, data);
 
   export let previewSrc = defaults.previewSrc;
-  let previewSrcValue = null;
-  $: if (data) {
-    previewSrcValue = previewSrc(data);
-  }
+  $: previewSrcValue = propValue(previewSrc, data);
+
+  export let formats = defaults.formats;
+  $: srcsetValue =
+    formats(data)
+      ?.map((f) => `${propValue(src, f)} ${propValue(width, f)}w`)
+      .join(',') || null;
 
   /**
    * Only show fade animation if image loading takes more than <fadeAfter> ms
@@ -65,7 +57,7 @@
   });
 
   let isLoaded = false;
-  const onImageLoaded = (e) => {
+  const onImageLoaded = () => {
     fade = fadeAfter >= 0 && performance.now() - pageTime > fadeAfter;
     isLoaded = true;
   };
@@ -78,10 +70,12 @@
     srcset={srcsetValue}
     title={titleValue}
     {sizes}
-    on:load={onImageLoaded}
+    on:load|once={onImageLoaded}
     class={`rip-img ${$$restProps.class || defaults.class}`}
-    class:hidden={!isLoaded}
+    class:loading={!isLoaded}
     class:fade
+    width={widthValue}
+    height={heightValue}
   />
 </PreviewWrapper>
 
@@ -89,7 +83,7 @@
   img {
     opacity: 1;
   }
-  img.hidden {
+  img.loading {
     opacity: 0;
   }
 

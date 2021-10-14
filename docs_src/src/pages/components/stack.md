@@ -34,10 +34,11 @@ The image stack can be used to display a responsive background image
             Example 2
         </Stack>
         <div class="h-48"></div>
-        <Stack class="h-96">
+        <Stack class="h-48">
             <Image slot="image" data={img} previewSrc={blurhashToData} />
             Example 3
         </Stack>
+        <div class="h-48"></div>
     </div>
 {:else}
     <button on:click={load}>Load</button>

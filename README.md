@@ -8,7 +8,7 @@
 
 ## Examples
 
-### Responsive Image with Thumbnail Preview
+### Responsive image with thumbnail preview
 
 ```js
 <script>
@@ -17,7 +17,6 @@
   let imgData = {
     src: 'static/robert-katzki-unsplash_org.jpg',
     previewSrc: 'static/robert-katzki-unsplash_32.jpg',
-    alt: 'Rainbow Tunnel',
     formats: [
         { src: 'static/robert-katzki-unsplash_400.jpg', width: 400 },
         { src: 'static/robert-katzki-unsplash_800.jpg', width: 800 },
@@ -29,7 +28,7 @@
 <Image data={imgData} />
 ```
 
-### Responsive Image with Blurhash Preview
+### Responsive image with blurhash preview
 
 ```js
 <script>
@@ -61,14 +60,13 @@
 </Stack>
 ```
 
-### Adjust default settings
+### Adjustable default settings
 
 ```js
 import { ImageDefaults } from '@bztes/svelte-rip';
 
-ImageDefaults.src = (data) => 'static/' + data.url;
-ImageDefaults.alt = (data) => data.alternativeText;
-ImageDefaults.formats = (data) => Object.values(data.formats);
+ImageDefaults.src = (data) => (data ? 'static/' + data.url : null);
+ImageDefaults.alt = (data) => data?.alternativeText;
 ```
 
 [svelte]: https://github.com/sveltejs/svelte

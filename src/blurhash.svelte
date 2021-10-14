@@ -1,25 +1,28 @@
 <script context="module">
+  import { decode } from 'blurhash';
+  import { propValue } from './utils';
+
   export const defaults = {
-    hash: 'L1TSUA?bfQ?b~qj[fQj[fQfQfQfQ',
-    alt: 'preview',
-    ratio: 1.333,
+    alt: (data) => data?.alt,
+    hash: (data) => data?.hash ?? 'L1TSUA?bfQ?b~qj[fQj[fQfQfQfQ',
+    ratio: (data) => data?.ratio ?? 1.3333,
     resolution: 32,
-    src: 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=',
+    src: (data) =>
+      data?.src ?? 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=',
   };
 
-  export const toData = (img) => {
+  export const toData = (data, options) => {
     if (typeof document === 'undefined') {
       return defaults.src;
     }
 
-    img = {
-      ...defaults,
-      ...img,
-    };
+    let hash = propValue(options?.hash ?? defaults.hash, data);
+    let ratio = propValue(options?.ratio ?? defaults.ratio, data);
+    let resolution = options?.resolution ?? defaults.resolution;
 
-    const w = img.resolution;
-    const h = Math.round(img.resolution / img.ratio);
-    const pixels = decode(img.hash, w, h);
+    const w = resolution;
+    const h = Math.round(resolution / ratio);
+    const pixels = decode(hash, w, h);
     const canvas = document.createElement('canvas');
     canvas.width = w;
     canvas.height = h;
@@ -32,21 +35,19 @@
 </script>
 
 <script>
-  import { decode } from 'blurhash';
+  export let data;
+  export let hash;
+  export let ratio;
+  export let resolution;
 
-  export let hash = defaults.hash;
   export let alt = defaults.alt;
-  export let ratio = defaults.ratio;
-  export let resolution = defaults.resolution;
+  $: altValue = propValue(alt, data);
 
   let src = defaults.src;
-
-  $: if (hash && resolution && ratio) {
-    src = toData({ hash, resolution, ratio });
-  }
+  $: src = toData(data, { hash, ratio, resolution });
 </script>
 
-<img {src} {alt} />
+<img {src} alt={altValue} />
 
 <style>
   img {

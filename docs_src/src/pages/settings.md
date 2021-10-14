@@ -8,10 +8,10 @@ The global settings can be overwritten in the respective default objects, e.g. I
 <script>
     import { Image, ImageDefaults } from '@bztes/svelte-rip';
 
-    ImageDefaults.src = (data) => "static/" + data.src;
-    ImageDefaults.formats = (data) => [400, 800, 1600].map((w) => {
+    ImageDefaults.src = (data) => data ? "static/" + data.src : null;
+    ImageDefaults.formats = (data) => data ? [400, 800, 1600].map((w) => {
         return { src: data.src.replace('org', w), width: w };
-    });
+    }) : null;
 
     let img = null;
 
@@ -22,6 +22,8 @@ The global settings can be overwritten in the respective default objects, e.g. I
 
 {#if img}
     <Image data={img} />
+    <!-- Don't forget null handling for images where not data is provided -->
+    <Image src="static/robert-katzki-unsplash_400.jpg" />
 {:else}
     <button on:click={load}>Load</button>
 {/if}
