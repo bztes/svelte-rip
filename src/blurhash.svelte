@@ -2,18 +2,20 @@
   import { decode } from 'blurhash';
   import { propValue } from './utils';
 
+  const isSSR = typeof document === 'undefined';
+
   export const defaults = {
     alt: (data) => data?.alt,
     hash: (data) => data?.hash ?? 'L1TSUA?bfQ?b~qj[fQj[fQfQfQfQ',
     ratio: (data) => data?.ratio ?? 1.3333,
     resolution: 32,
-    src: (data) =>
-      data?.src ?? 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=',
+    ssr: (data) =>
+      data?.ssr ?? 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=',
   };
 
   export const toData = (data, options) => {
-    if (typeof document === 'undefined') {
-      return defaults.src;
+    if (isSSR) {
+      return propValue(options?.ssr ?? defaults.ssr, data);
     }
 
     let hash = propValue(options?.hash ?? defaults.hash, data);
@@ -43,7 +45,6 @@
   export let alt = defaults.alt;
   $: altValue = propValue(alt, data);
 
-  let src = defaults.src;
   $: src = toData(data, { hash, ratio, resolution });
 </script>
 

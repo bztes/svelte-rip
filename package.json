@@ -18,8 +18,8 @@
   "author": "Nico Beierle",
   "license": "ISC",
   "devDependencies": {
-    "svelte": "^3.38.0",
-    "blurhash": "^1.1.0"
+    "blurhash": "^1.1.0",
+    "svelte": "^3.38.0"
   },
   "repository": {
     "type": "git",

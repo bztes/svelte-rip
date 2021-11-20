@@ -18,11 +18,13 @@
   import PreviewWrapper from './preview-wrapper.svelte';
   import { propValue } from './utils';
 
+  const isSSR = typeof document === 'undefined';
+
   export let data = null;
   export let sizes = defaults.sizes;
 
   export let src = defaults.src;
-  $: srcValue = propValue(src, data);
+  $: srcValue = isSSR ? null : propValue(src, data);
 
   export let width = defaults.width;
   $: widthValue = propValue(width, data);
@@ -40,10 +42,11 @@
   $: previewSrcValue = propValue(previewSrc, data);
 
   export let formats = defaults.formats;
-  $: srcsetValue =
-    formats(data)
-      ?.map((f) => `${propValue(src, f)} ${propValue(width, f)}w`)
-      .join(',') || null;
+  $: srcsetValue = isSSR
+    ? null
+    : formats(data)
+        ?.map((f) => `${propValue(src, f)} ${propValue(width, f)}w`)
+        .join(',') ?? null;
 
   /**
    * Only show fade animation if image loading takes more than <fadeAfter> ms
@@ -54,7 +57,10 @@
   let pageTime = 0;
   onMount(() => {
     pageTime = performance.now();
+    isLoaded |= imgRef.complete;
   });
+
+  let imgRef;
 
   let isLoaded = false;
   const onImageLoaded = () => {
@@ -65,6 +71,7 @@
 
 <PreviewWrapper src={previewSrcValue}>
   <img
+    bind:this={imgRef}
     src={srcValue}
     alt={altValue}
     srcset={srcsetValue}
